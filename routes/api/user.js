@@ -6,9 +6,12 @@ var chalk = require('chalk');
 var schema = require('../../middleware/schema');
 var hashPassword = require('../../utils/hashPassword');
 
+var requireAuth = require('../../middleware/requireAuth');
+
+
 /* GET users listing. */
-router.get('/', function(req, res) {
-  res.send('fuck you cunt');
+router.get('/', requireAuth, function(req, res) {
+  res.send(req.user);
 });
 
 router.post('/', schema({
