@@ -29,12 +29,31 @@ passport.serializeUser(function (user, done) {
   return done(null, user.id);
 })
 
+class User {
+  constructor({email, expansion, id, joindate, last_attempt_ip, username, gmlevel}) {
+    this.email = email;
+    this.expansion = expansion;
+    this.id = id;
+    this.joindate = joindate;
+    this.last_attempt_ip = last_attempt_ip;
+    this.username = username;
+    this.gmLevel = gmlevel || 0;
+  }
+}
+
 passport.deserializeUser(function (id, done) {
   return authDb.query(
-    `SELECT * from account where id = ? `,
+    `SELECT *
+      FROM account 
+      LEFT JOIN account_access on (account.id = account_access.id)
+      WHERE account.id = ? `,
     [id],
     function(err, result) {
-      done(err, result[0]);
+      if (err) {
+        done(err, null);
+      } else {
+        done(err, new User(result[0]));
+      }
     }
   )
 });
