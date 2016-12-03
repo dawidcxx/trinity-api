@@ -9,11 +9,13 @@ var hashPassword = require('../../utils/hashPassword');
 var requireAuth = require('../../middleware/requireAuth');
 
 
-/* GET users listing. */
+// gets the logged in user
 router.get('/', requireAuth, function(req, res) {
   res.send(req.user);
 });
 
+
+// creates a new user
 router.post('/', schema({
   password: {
     notEmpty: true,
