@@ -17,7 +17,7 @@ router.post('/logout', function(req, res) {
 /**
  * RESOURCES
  */
-router.use('/user', require('./api/user'));
+router.use('/user', require('./user/index'));
 
 
 module.exports = router;
