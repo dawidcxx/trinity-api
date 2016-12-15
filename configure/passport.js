@@ -29,7 +29,7 @@ passport.serializeUser(function (user, done) {
   return done(null, user.id);
 })
 
-class User {
+class SerializedUser {
   constructor({email, expansion, id, joindate, last_attempt_ip, username, gmlevel}) {
     this.email = email;
     this.expansion = expansion;
@@ -52,7 +52,7 @@ passport.deserializeUser(function (id, done) {
       if (err) {
         done(err, null);
       } else {
-        done(err, new User(result[0]));
+        done(err, new SerializedUser(result[0]));
       }
     }
   )

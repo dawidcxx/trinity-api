@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('api:server');
 var http = require('http');
+var chalk = require('chalk');
 
 /**
  * Get port from environment and store in Express.
@@ -87,4 +88,7 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  setTimeout(() => {
+    console.log(chalk.bgGreen(`app running on: ${bind}`));
+  }, 2000);
 }

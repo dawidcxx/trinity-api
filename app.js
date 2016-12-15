@@ -1,4 +1,17 @@
+/**
+ * CONFIGURATION
+ */
+// load the .env file 
 require('dotenv').config();
+
+// check if the app has all required environemnt variables setup.
+var checkEnvs = require('./utils/checkEnvs');
+checkEnvs([
+  'TC_DB_HOST',
+  'TC_DB_USERNAME',
+  'TC_DB_PASSWORD',
+  'TC_API_SECRET',
+]);
 
 var express = require('express');
 var favicon = require('serve-favicon');
@@ -12,14 +25,13 @@ var passport = require('./configure/passport');
 
 var app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
 
+// provide a database context to every request
 app.use(require('./middleware/dbContext'));
 
 app.use(session({
