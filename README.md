@@ -15,14 +15,14 @@ Next you need to provide a configuration to the application via environemnt vari
 You can either set them manually or create a .env file at the root of this project. An example configuration may look like this:
 
 .env
-``
+
+```
 
 TC_DB_HOST=localhost
 TC_DB_USERNAME=trinity
 TC_DB_PASSWORD=trinity
 TC_API_SECRET=SOME_RANDOM_A$$_STRING_THAT_WILL_BE_USED_TO_ENCRYPT_YOUR_COOKIES
 PORT=80
-
 ```
 
 If you configured everything correctly you should be able to just run 
