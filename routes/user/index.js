@@ -3,10 +3,12 @@ var router = express.Router();
 var util = require('util');
 var chalk = require('chalk');
 
-var schema = require('../../middleware/schema');
+var validateSchema = require('../../middleware/schema');
 var hashPassword = require('../../utils/hashPassword');
 
 var requireAuth = require('../../middleware/requireAuth');
+
+var schema = require('./schema.json');
 
 
 // gets the logged in user
@@ -16,20 +18,7 @@ router.get('/', requireAuth, function(req, res) {
 
 
 // creates a new user
-router.post('/', schema({
-  password: {
-    notEmpty: true,
-    isLength: {
-      options: [{ min: 8, max: 64 }]
-    },
-  },  
-  username: {
-    notEmpty: true,
-    isLength: {
-      options: [{ min: 3, max: 32 }]
-    }
-  }
-}), function(req, res, next) {
+router.post('/', validateSchema(schema.post), function(req, res, next) {
   var {username, password} = req.body;
   var {auth} = req.db;
   var hash = hashPassword(username, password);
@@ -45,7 +34,5 @@ router.post('/', schema({
     }
   );
 });
-
-
 
 module.exports = router;

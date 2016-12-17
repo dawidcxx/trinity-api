@@ -1,0 +1,18 @@
+{
+  "post": {
+    "type": "object",
+    "required": ["username", "password"],
+    "properties": {
+      "username": {
+        "type": "string",
+        "minLenght": 4,
+        "maxLenght": 64
+      },
+      "password": {
+        "type": "string",
+        "minLength": 6,
+        "maxLenght": 128
+      }
+    }
+  }
+}
